@@ -3,6 +3,7 @@ package com.info.omomom.catapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -30,9 +31,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
+        //Arama çubuğu için kodlamalar
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
 
         MenuItem item= menu.findItem(R.id.action_search);
+
+        SearchView searchView=(SearchView) item.getActionView();
+
+        searchView.setOnQueryTextListener(this);
 
         return super.onCreateOptionsMenu(menu);
     }

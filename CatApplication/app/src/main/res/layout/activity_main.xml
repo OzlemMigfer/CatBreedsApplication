@@ -23,14 +23,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="#FDFAFA"
+        android:background="#FADDFA"
         android:backgroundTint="#FADDFA"
         android:minHeight="?attr/actionBarSize"
         android:radius="35dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#656161" />
 
     <TextView
         android:id="@+id/textView"
@@ -42,6 +43,7 @@
         android:textColor="#69057A"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +52,7 @@
         android:layout_width="40dp"
         android:layout_height="31dp"
         android:layout_marginTop="8dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/like_icon" />

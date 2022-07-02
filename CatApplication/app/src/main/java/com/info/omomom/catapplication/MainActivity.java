@@ -4,17 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private Toolbar toolbar;
     private RecyclerView rv;
+    private ArrayList<String> catBreedsNameList;
+    private ArrayList<ImageView> catImageList;
+    private ArrayList<ImageView> catFavouriteList;
+    private RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +31,27 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         toolbar=findViewById(R.id.toolbar);
         rv=findViewById(R.id.rv);
+
+        rv.setHasFixedSize(true);//dışardan gelecek olan listenin boyutunu fixlemek için yazıyoruz
+
+        //recyclerview in tasarımına karar veriyoruz,nasıl gözükücek diye
+        rv.setLayoutManager(new LinearLayoutManager(this));
+
+        //veri kümesini oluşturuyoruz
+        catBreedsNameList= new ArrayList<>();
+        catImageList=new ArrayList<>();
+        catFavouriteList=new ArrayList<>();
+
+        catBreedsNameList.add("American WireHair");
+        catBreedsNameList.add("Aegean");
+        catBreedsNameList.add("Cheetoh");
+        catBreedsNameList.add("Himalayan");
+        catBreedsNameList.add("Manx");
+
+        adapter=new RVAdapter(this,catImageList,catBreedsNameList,catFavouriteList);
+
+        //adapter ı recyclervew içerisine aktarmamız gerek
+        rv.setAdapter(adapter);
 
         toolbar.setTitle("Search");
         setSupportActionBar(toolbar);

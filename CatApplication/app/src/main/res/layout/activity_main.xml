@@ -23,15 +23,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="#FADDFA"
-        android:backgroundTint="#FADDFA"
+        android:background="#630F63"
+        android:backgroundTint="#630F63"
         android:minHeight="?attr/actionBarSize"
         android:radius="35dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="#656161" />
+        app:titleTextColor="#8F8B8B" />
 
     <TextView
         android:id="@+id/textView"

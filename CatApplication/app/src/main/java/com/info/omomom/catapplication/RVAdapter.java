@@ -16,15 +16,11 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewDesignObjectHolder>{
     private Context mContext;
-    private List<ImageView> comingCatImageList;
-    private List<String> comingCatBreedNameList;
-    private List<ImageView> comingFavouriteBreedList;
+    private List<CatBreeds> catBreedsList;
 
-    public RVAdapter(Context mContext, List<ImageView> comingCatImage, List<String> comingCatBreedName, List<ImageView> comingFavouriteBreed) {
+    public RVAdapter(Context mContext, List<CatBreeds> catBreedsList) {
         this.mContext = mContext;
-        this.comingCatImageList = comingCatImage;
-        this.comingCatBreedNameList = comingCatBreedName;
-        this.comingFavouriteBreedList = comingFavouriteBreed;
+        this.catBreedsList = catBreedsList;
     }
 
     //cardView deki nesneleri adapter a bağlıyoruz
@@ -33,12 +29,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewDesignObje
         public TextView textViewCatBreedName;
         public CardView rowCardView;
 
-        public CardViewDesignObjectHolder(@NonNull View view) {
-            super(view);
-            imageViewCatImage=view.findViewById(R.id.imageViewCatImage);
-            imageViewStar=view.findViewById(R.id.imageViewStar);
-            textViewCatBreedName=view.findViewById(R.id.imageViewCatImage);
-            rowCardView=view.findViewById(R.id.rowCardView);
+        public CardViewDesignObjectHolder(@NonNull View itemview) {
+            super(itemview);
+            imageViewCatImage=itemview.findViewById(R.id.imageViewCatImage);
+            imageViewStar=itemview.findViewById(R.id.imageViewStar);
+            textViewCatBreedName=itemview.findViewById(R.id.textViewCatBreedName);
+            rowCardView=itemview.findViewById(R.id.rowCardView);
         }
     }
 
@@ -56,19 +52,27 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewDesignObje
     //holder ile nesnelere,position ile de indekslerine ulaşıyoruz,kaç tane kartın oluşacağını da belirler
     @Override
     public void onBindViewHolder(@NonNull CardViewDesignObjectHolder holder, int position) {
-        ImageView catImage=comingCatImageList.get(position);
-        String catBreedName=comingCatBreedNameList.get(position);
-        ImageView catFavourite=comingFavouriteBreedList.get(position);
+        final CatBreeds catBreeds=catBreedsList.get(position);
 
-        //!!!!image ler için de yapmam gerek ama yapamadım ekle sonradan!!!!
-        holder.textViewCatBreedName.setText(catBreedName);
+        holder.textViewCatBreedName.setText(catBreeds.getCatbreed_name());
+        holder.imageViewStar.setImageResource(R.drawable.star);
+
+        holder.imageViewCatImage.setImageResource(mContext.getResources()
+                .getIdentifier(catBreeds.getCat_image(),"drawable",mContext.getPackageName()));
 
         //listelenen cardView lerde tıklanma için,tıklamadan sonra detaylı olan başka bir sayfaya yönlendirilecek
         holder.rowCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //geçici olarak toast mesaj bırakıyoruz
-                Toast.makeText(mContext,"Your chosen cat :"+ catBreedName,Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"Your chosen cat :"+ catBreeds.getCatbreed_name(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.imageViewStar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext, "Your choosen favourite cat breed :"+catBreeds.getCatbreed_name(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -76,7 +80,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewDesignObje
     //alınan verilerin boyutuna göre kaç kez döndereceğini belirler
     @Override
     public int getItemCount() {
-        return comingCatBreedNameList.size();
+        return catBreedsList.size();
     }
 
 

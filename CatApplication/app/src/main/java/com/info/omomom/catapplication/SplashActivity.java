@@ -12,6 +12,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        //splash sayfası için
         Thread timerThread = new Thread(){
             public void run(){
                 try{
@@ -26,6 +27,7 @@ public class SplashActivity extends AppCompatActivity {
         };
         timerThread.start();
     }
+    //splash sayfası için
     @Override
     protected void onPause() {
         super.onPause();

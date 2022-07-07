@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,9 +21,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private Toolbar toolbar;
     private RecyclerView rv;
-    private ArrayList<String> catBreedsNameList;
-    private ArrayList<ImageView> catImageList;
-    private ArrayList<ImageView> catFavouriteList;
+    private ArrayList<CatBreeds> catBreedsArrayList;
     private RVAdapter adapter;
 
     @Override
@@ -31,26 +31,23 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         toolbar=findViewById(R.id.toolbar);
         rv=findViewById(R.id.rv);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
 
-        rv.setHasFixedSize(true);//dışardan gelecek olan listenin boyutunu fixlemek için yazıyoruz
+        CatBreeds c1=new CatBreeds(1,"Abyssinian","abyssinian");
+        CatBreeds c2=new CatBreeds(2,"Aegean","aegean");
+        CatBreeds c3=new CatBreeds(3,"Bengal","bengal");
+        CatBreeds c4=new CatBreeds(4,"Birman","birman");
+        CatBreeds c5=new CatBreeds(5,"Chartreux","chartreux");
 
-        //recyclerview in tasarımına karar veriyoruz,nasıl gözükücek diye
-        rv.setLayoutManager(new LinearLayoutManager(this));
+        catBreedsArrayList=new ArrayList<>();
+        catBreedsArrayList.add(c1);
+        catBreedsArrayList.add(c2);
+        catBreedsArrayList.add(c3);
+        catBreedsArrayList.add(c4);
+        catBreedsArrayList.add(c5);
 
-        //veri kümesini oluşturuyoruz
-        catBreedsNameList= new ArrayList<>();
-        catImageList=new ArrayList<>();
-        catFavouriteList=new ArrayList<>();
-
-        catBreedsNameList.add("American WireHair");
-        catBreedsNameList.add("Aegean");
-        catBreedsNameList.add("Cheetoh");
-        catBreedsNameList.add("Himalayan");
-        catBreedsNameList.add("Manx");
-
-        adapter=new RVAdapter(this,catImageList,catBreedsNameList,catFavouriteList);
-
-        //adapter ı recyclervew içerisine aktarmamız gerek
+        adapter=new RVAdapter(this,catBreedsArrayList);
         rv.setAdapter(adapter);
 
         toolbar.setTitle("Search");

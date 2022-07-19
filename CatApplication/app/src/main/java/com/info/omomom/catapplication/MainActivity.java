@@ -13,16 +13,32 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+
+    //api için
+    private Retrofit retrofit;
+    private CatApi catApi;
+    private String baseUrl ="https://docs.thecatapi.com/api-reference/breeds/breeds-list/";
+    private Call<RetrofitCat> retrofitCatCall;
+    private RetrofitCat retrofitCat;
+    private CatBreeds catBreeds;
 
     private Toolbar toolbar;
     private RecyclerView rv;
     private ArrayList<CatBreeds> catBreedsArrayList;
     private RVAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,5 +97,32 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String newText) {
         Log.e("As You Enter Letters",newText);
         return false;
+    }
+
+    //api için
+    private void setRetrofitSettings(){
+        retrofit=new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        catApi=retrofit.create(CatApi.class);
+        retrofitCatCall.enqueue(new Callback<RetrofitCat>() {
+            //veriler inmiş mi diye kontrol ediliyor
+            @Override
+            public void onResponse(Call<RetrofitCat> call, Response<RetrofitCat> response) {
+                if(response.isSuccessful()){
+                    retrofitCat=response.body();
+                    if(retrofitCat!=null){
+                        catBreeds.setCatbreed_name(retrofitCat.getWidth());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RetrofitCat> call, Throwable t) {
+                System.out.println(t.toString());
+            }
+        });
     }
 }

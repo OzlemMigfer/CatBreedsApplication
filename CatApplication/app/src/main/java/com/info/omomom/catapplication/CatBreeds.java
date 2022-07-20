@@ -2,7 +2,9 @@ package com.info.omomom.catapplication;
 
 import android.widget.ImageView;
 
-public class CatBreeds {
+import java.io.Serializable;
+
+public class CatBreeds implements Serializable {
     private int cat_id;
     private String catbreed_name;
     private String cat_image;

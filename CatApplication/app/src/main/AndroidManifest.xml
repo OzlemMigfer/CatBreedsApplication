@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.info.omomom.catapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CatApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".CatBreedDetail"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

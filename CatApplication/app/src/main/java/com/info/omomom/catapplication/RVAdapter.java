@@ -1,6 +1,7 @@
 package com.info.omomom.catapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +66,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CardViewDesignObje
             @Override
             public void onClick(View view) {
                 //geçici olarak toast mesaj bırakıyoruz
-                Toast.makeText(mContext,"Your chosen cat :"+ catBreeds.getCatbreed_name(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext,"Your chosen cat :"+ catBreeds.getCatbreed_name(),Toast.LENGTH_SHORT).show();
+
+                //cardView e tıklanınca detay sayfasına geçmesini istiyorum
+                Intent intent=new Intent(mContext,CatBreedDetail.class);
+
+                //hangi nesne dönecek
+                intent.putExtra("object",catBreeds);
+                mContext.startActivity(intent);
             }
         });
 
